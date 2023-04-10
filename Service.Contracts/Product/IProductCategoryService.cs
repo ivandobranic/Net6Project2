@@ -10,6 +10,8 @@ namespace Service.Contracts
 
         ProductCategoryDto GetProductCategory(Guid id, bool trackChanges);
 
+        ProductCategoryDto CreateProductCategory(ProductCategoryCreateDto productCategory);
+
         #endregion Methods
     }
 }

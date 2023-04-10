@@ -2,6 +2,7 @@
 using Common.DataTransferObjects;
 using Contracts;
 using Entities.Exceptions;
+using Entities.Models;
 using Service.Contracts;
 
 namespace Service
@@ -47,6 +48,14 @@ namespace Service
             }
             var productCategoryDto = Mapper.Map<ProductCategoryDto>(productCategory);
             return productCategoryDto;
+        }
+
+        public ProductCategoryDto CreateProductCategory(ProductCategoryCreateDto productCategory)
+        {
+            var productCategoryEntity = Mapper.Map<ProductCategory>(productCategory);
+            RepositoryManager.ProductCategoryRepository.CreateProductCategory(productCategoryEntity);
+            RepositoryManager.Save();
+            return Mapper.Map<ProductCategoryDto>(productCategoryEntity);
         }
 
         #endregion Methods

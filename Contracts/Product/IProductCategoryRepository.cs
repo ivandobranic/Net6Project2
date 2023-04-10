@@ -10,6 +10,8 @@ namespace Contracts
 
         ProductCategory? GetProductCategory(Guid id, bool trackChanges);
 
+        void CreateProductCategory(ProductCategory productCategory);
+
         #endregion Methods
     }
 }

@@ -28,7 +28,7 @@ namespace WebApi.Controllers
             return Ok(products);
         }
 
-        [HttpGet("{id:guid}")]
+        [HttpGet("{id:guid}", Name = "ProductCategoryById")]
         public IActionResult GetProduct(Guid id)
         {
             var product = ServiceManager.ProductService.GetProduct(id, trackChanges: false);

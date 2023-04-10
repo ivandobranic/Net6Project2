@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Common.DataTransferObjects;
+using Microsoft.AspNetCore.Mvc;
 using Service.Contracts;
 
 namespace WebApi.Controllers
@@ -33,6 +34,15 @@ namespace WebApi.Controllers
         {
             var productCategory = ServiceManager.ProductCategoryService.GetProductCategory(id, trackChanges: false);
             return Ok(productCategory);
+        }
+
+        [HttpPost]
+        public IActionResult CreateProductCategory([FromBody] ProductCategoryCreateDto productCategory)
+        {
+            if (productCategory is null)
+                return BadRequest("productCategory object is null");
+            var createdProductCategory = ServiceManager.ProductCategoryService.CreateProductCategory(productCategory);
+            return CreatedAtRoute("ProductCategoryById", new { id = createdProductCategory.Id }, createdProductCategory);
         }
 
         #endregion Methods

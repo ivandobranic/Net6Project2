@@ -23,7 +23,24 @@ namespace Repository
 
         public ProductCategory? GetProductCategory(Guid id, bool trackChanges) =>
             FindByCondition(c => c.Id.Equals(id), trackChanges)
-           .SingleOrDefault();
+        .SingleOrDefault();
+
+        public void CreateProductCategory(ProductCategory productCategory)
+        {
+            OnProductCategoryCreateOrUpdate(productCategory);
+            Create(productCategory);
+        }
+
+        private void OnProductCategoryCreateOrUpdate(ProductCategory productCategory)
+        {
+            var now = DateTime.UtcNow;
+            if (productCategory.DateCreated.Equals(DateTime.MinValue))
+            {
+                productCategory.DateCreated = now;
+            }
+            productCategory.DateUpdated = now;
+            productCategory.TimeStamp = now;
+        }
 
         #endregion Methods
     }
