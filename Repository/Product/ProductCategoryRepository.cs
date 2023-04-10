@@ -13,5 +13,18 @@ namespace Repository
         }
 
         #endregion Constructors
+
+        #region Methods
+
+        public IEnumerable<ProductCategory> FindProductCategories(bool trackChanges) =>
+             FindAll(trackChanges)
+            .OrderBy(c => c.Name)
+            .ToList();
+
+        public ProductCategory? GetProductCategory(Guid id, bool trackChanges) =>
+            FindByCondition(c => c.Id.Equals(id), trackChanges)
+           .SingleOrDefault();
+
+        #endregion Methods
     }
 }

@@ -12,5 +12,18 @@ namespace Repository.Product
         }
 
         #endregion Constructors
+
+        #region Methods
+
+        public IEnumerable<Entities.Models.Product> FindProducts(bool trackChanges) =>
+            FindAll(trackChanges)
+           .OrderBy(c => c.Name)
+           .ToList();
+
+        public Entities.Models.Product? GetProduct(Guid id, bool trackChanges) =>
+            FindByCondition(c => c.Id.Equals(id), trackChanges)
+           .SingleOrDefault();
+
+        #endregion Methods
     }
 }

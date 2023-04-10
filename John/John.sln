@@ -3,20 +3,28 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.4.33103.184
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "John", "John.csproj", "{99140FC6-C2BA-46D9-97CA-9E900C8E4F34}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "John", "John.csproj", "{99140FC6-C2BA-46D9-97CA-9E900C8E4F34}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Contracts", "..\Contracts\Contracts.csproj", "{0624F43A-F775-4146-89A4-F4A84B86D0EC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Contracts", "..\Contracts\Contracts.csproj", "{0624F43A-F775-4146-89A4-F4A84B86D0EC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LoggerService", "..\LoggerService\LoggerService.csproj", "{7057E1CC-E1BC-41D3-B9B3-20E1236CC37E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LoggerService", "..\LoggerService\LoggerService.csproj", "{7057E1CC-E1BC-41D3-B9B3-20E1236CC37E}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{BFADD5B8-4B71-40A7-AE07-FE74956394E6}"
 	ProjectSection(SolutionItems) = preProject
 		nlog.config = nlog.config
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Entities", "..\Entities\Entities.csproj", "{56412073-5E49-4EB8-8A1E-FB967647791A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Entities", "..\Entities\Entities.csproj", "{56412073-5E49-4EB8-8A1E-FB967647791A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Repository", "..\Repository\Repository.csproj", "{C63FBF30-3925-4D81-9340-ED1CCF929628}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Repository", "..\Repository\Repository.csproj", "{C63FBF30-3925-4D81-9340-ED1CCF929628}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Service.Contracts", "..\Service.Contracts\Service.Contracts.csproj", "{2BBBF24C-6C45-4BC9-86C6-E52804549590}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Service", "..\Service\Service.csproj", "{CC806C72-9377-4A73-9334-705425B5DF30}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebApi", "..\WebApi\WebApi.csproj", "{9E23B546-C9F3-4598-A164-694C49242304}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common", "..\Common\Common.csproj", "{81D9C9DE-81C2-450B-82BA-055413691D0B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -44,6 +52,22 @@ Global
 		{C63FBF30-3925-4D81-9340-ED1CCF929628}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C63FBF30-3925-4D81-9340-ED1CCF929628}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C63FBF30-3925-4D81-9340-ED1CCF929628}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2BBBF24C-6C45-4BC9-86C6-E52804549590}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2BBBF24C-6C45-4BC9-86C6-E52804549590}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2BBBF24C-6C45-4BC9-86C6-E52804549590}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2BBBF24C-6C45-4BC9-86C6-E52804549590}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CC806C72-9377-4A73-9334-705425B5DF30}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CC806C72-9377-4A73-9334-705425B5DF30}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CC806C72-9377-4A73-9334-705425B5DF30}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CC806C72-9377-4A73-9334-705425B5DF30}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9E23B546-C9F3-4598-A164-694C49242304}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9E23B546-C9F3-4598-A164-694C49242304}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9E23B546-C9F3-4598-A164-694C49242304}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9E23B546-C9F3-4598-A164-694C49242304}.Release|Any CPU.Build.0 = Release|Any CPU
+		{81D9C9DE-81C2-450B-82BA-055413691D0B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{81D9C9DE-81C2-450B-82BA-055413691D0B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{81D9C9DE-81C2-450B-82BA-055413691D0B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{81D9C9DE-81C2-450B-82BA-055413691D0B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
