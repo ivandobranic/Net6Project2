@@ -47,6 +47,33 @@ namespace Service
             return Mapper.Map<ProductDto>(product);
         }
 
+        public ProductDto CreateProduct(Guid productCategoryId, ProductCreateDto product, bool trackChanges)
+        {
+            var productEntity = Mapper.Map<Entities.Models.Product>(product);
+            RepositoryManager.ProductRepository.CreateProduct(productCategoryId, productEntity);
+            RepositoryManager.Save();
+            return Mapper.Map<ProductDto>(productEntity);
+        }
+
+        public void DeleteProduct(Guid id, bool trackChanges)
+        {
+            var product = RepositoryManager.ProductRepository.GetProduct(id, trackChanges);
+            if (product is null)
+                throw new ProductNotFoundException(id);
+            RepositoryManager.ProductRepository.DeleteProduct(product);
+            RepositoryManager.Save();
+        }
+
+        public void UpdateProduct(Guid id, ProductUpdateDto productUpdate, bool trackChanges)
+        {
+            var productEntity = RepositoryManager.ProductRepository.GetProduct(id, trackChanges);
+            if (productEntity is null)
+                throw new ProductNotFoundException(id);
+            Mapper.Map(productUpdate, productEntity);
+            RepositoryManager.ProductRepository.OnEntityCreateOrUpdate(productEntity);
+            RepositoryManager.Save();
+        }
+
         #endregion Methods
     }
 }

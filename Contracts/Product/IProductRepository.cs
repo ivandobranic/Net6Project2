@@ -10,6 +10,12 @@ namespace Contracts
 
         Product? GetProduct(Guid id, bool trackChanges);
 
+        void CreateProduct(Guid productCategoryId, Entities.Models.Product product);
+
+        void DeleteProduct(Product product);
+
+        void OnEntityCreateOrUpdate(BaseModel productCategory);
+
         #endregion Methods
     }
 }

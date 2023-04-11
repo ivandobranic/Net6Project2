@@ -1,5 +1,4 @@
 ﻿using Contracts;
-using Repository.Product;
 
 namespace Repository
 {

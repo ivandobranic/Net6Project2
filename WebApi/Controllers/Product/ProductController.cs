@@ -1,10 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Common.DataTransferObjects;
+using Microsoft.AspNetCore.Mvc;
 using Service.Contracts;
 
 namespace WebApi.Controllers
 {
     [Route("api/products")]
-    [ApiController]
     public class ProductController : ControllerBase
     {
         #region Constructors
@@ -33,6 +33,36 @@ namespace WebApi.Controllers
         {
             var product = ServiceManager.ProductService.GetProduct(id, trackChanges: false);
             return Ok(product);
+        }
+
+        [HttpPost]
+        public IActionResult CreateProduct(Guid productCategoryId, [FromBody] ProductCreateDto product)
+        {
+            if (product is null)
+                return BadRequest("ProductCreateDto object is null");
+            var createdProduct = ServiceManager.ProductService.CreateProduct(productCategoryId, product, trackChanges: false);
+            return CreatedAtRoute("GetEmployeeForCompany", new
+            {
+                productCategoryId,
+                id = createdProduct.Id
+            },
+            createdProduct);
+        }
+
+        [HttpDelete("{id:guid}")]
+        public IActionResult DeleteProduct(Guid id)
+        {
+            ServiceManager.ProductService.DeleteProduct(id, trackChanges: false);
+            return NoContent();
+        }
+
+        [HttpPut("{id:guid}")]
+        public IActionResult UpdateProduct(Guid id, [FromBody] ProductUpdateDto product)
+        {
+            if (product is null)
+                return BadRequest("ProductUpdateDto object is null");
+            ServiceManager.ProductService.UpdateProduct(id, product, trackChanges: true);
+            return NoContent();
         }
 
         #endregion Methods

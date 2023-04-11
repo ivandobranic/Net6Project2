@@ -1,8 +1,9 @@
 ﻿using Contracts;
+using Entities.Models;
 
-namespace Repository.Product
+namespace Repository
 {
-    public class ProductRepository : RepositoryBase<Entities.Models.Product>, IProductRepository
+    public class ProductRepository : RepositoryBase<Product>, IProductRepository
     {
         #region Constructors
 
@@ -15,14 +16,23 @@ namespace Repository.Product
 
         #region Methods
 
-        public IEnumerable<Entities.Models.Product> FindProducts(bool trackChanges) =>
+        public IEnumerable<Product> FindProducts(bool trackChanges) =>
             FindAll(trackChanges)
            .OrderBy(c => c.Name)
            .ToList();
 
-        public Entities.Models.Product? GetProduct(Guid id, bool trackChanges) =>
+        public Product? GetProduct(Guid id, bool trackChanges) =>
             FindByCondition(c => c.Id.Equals(id), trackChanges)
            .SingleOrDefault();
+
+        public void CreateProduct(Guid productCategoryId, Product product)
+        {
+            product.ProductCategoryId = productCategoryId;
+            OnEntityCreateOrUpdate(product);
+            Create(product);
+        }
+
+        public void DeleteProduct(Product product) => Delete(product);
 
         #endregion Methods
     }

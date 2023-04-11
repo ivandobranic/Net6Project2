@@ -5,7 +5,6 @@ using Service.Contracts;
 namespace WebApi.Controllers
 {
     [Route("api/product-categories")]
-    [ApiController]
     public class ProductCategoryController : ControllerBase
     {
         #region Constructors

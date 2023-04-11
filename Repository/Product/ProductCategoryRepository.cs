@@ -27,19 +27,15 @@ namespace Repository
 
         public void CreateProductCategory(ProductCategory productCategory)
         {
-            OnProductCategoryCreateOrUpdate(productCategory);
-            Create(productCategory);
-        }
-
-        private void OnProductCategoryCreateOrUpdate(ProductCategory productCategory)
-        {
-            var now = DateTime.UtcNow;
-            if (productCategory.DateCreated.Equals(DateTime.MinValue))
+            OnEntityCreateOrUpdate(productCategory);
+            if (productCategory.Products?.Any() == true)
             {
-                productCategory.DateCreated = now;
+                foreach (var product in productCategory.Products)
+                {
+                    OnEntityCreateOrUpdate(product);
+                }
             }
-            productCategory.DateUpdated = now;
-            productCategory.TimeStamp = now;
+            Create(productCategory);
         }
 
         #endregion Methods

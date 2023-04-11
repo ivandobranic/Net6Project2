@@ -10,6 +10,12 @@ namespace Service.Contracts
 
         ProductDto GetProduct(Guid id, bool trackChanges);
 
+        ProductDto CreateProduct(Guid productCategoryId, ProductCreateDto product, bool trackChanges);
+
+        void DeleteProduct(Guid id, bool trackChanges);
+
+        void UpdateProduct(Guid id, ProductUpdateDto product, bool trackChanges);
+
         #endregion Methods
     }
 }

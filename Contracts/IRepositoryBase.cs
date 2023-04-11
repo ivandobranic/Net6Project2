@@ -8,8 +8,7 @@ namespace Contracts
 
         IQueryable<T> FindAll(bool trackChanges);
 
-        IQueryable<T> FindByCondition(Expression<Func<T, bool>> expression,
-        bool trackChanges);
+        IQueryable<T> FindByCondition(Expression<Func<T, bool>> expression, bool trackChanges);
 
         void Create(T entity);
 
