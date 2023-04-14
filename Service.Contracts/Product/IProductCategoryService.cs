@@ -6,11 +6,11 @@ namespace Service.Contracts
     {
         #region Methods
 
-        IEnumerable<ProductCategoryDto> FindProductCategories(bool trackChanges);
+        Task<IEnumerable<ProductCategoryDto>> FindProductCategoriesAsync(bool trackChanges);
 
-        ProductCategoryDto GetProductCategory(Guid id, bool trackChanges);
+        Task<ProductCategoryDto> GetProductCategoryAsync(Guid id, bool trackChanges);
 
-        ProductCategoryDto CreateProductCategory(ProductCategoryCreateDto productCategory);
+        Task<ProductCategoryDto> CreateProductCategoryAsync(ProductCategoryCreateDto productCategory);
 
         #endregion Methods
     }

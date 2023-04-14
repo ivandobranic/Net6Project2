@@ -6,9 +6,9 @@ namespace Contracts
     {
         #region Methods
 
-        IEnumerable<Product> FindProducts(bool trackChanges);
+        Task<IEnumerable<Product>> FindProductsAsync(bool trackChanges);
 
-        Product? GetProduct(Guid id, bool trackChanges);
+        Task<Product?> GetProductAsync(Guid id, bool trackChanges);
 
         void CreateProduct(Guid productCategoryId, Entities.Models.Product product);
 

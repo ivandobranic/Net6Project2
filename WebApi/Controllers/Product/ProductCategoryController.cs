@@ -22,25 +22,25 @@ namespace WebApi.Controllers
         #region Methods
 
         [HttpGet]
-        public IActionResult FindProductCategories()
+        public async Task<IActionResult> FindProductCategoriesAsync()
         {
-            var productCategories = ServiceManager.ProductCategoryService.FindProductCategories(trackChanges: false);
+            var productCategories = await ServiceManager.ProductCategoryService.FindProductCategoriesAsync(trackChanges: false);
             return Ok(productCategories);
         }
 
         [HttpGet("{id:guid}")]
-        public IActionResult GetProductCategory(Guid id)
+        public async Task<IActionResult> GetProductCategoryAsync(Guid id)
         {
-            var productCategory = ServiceManager.ProductCategoryService.GetProductCategory(id, trackChanges: false);
+            var productCategory = await ServiceManager.ProductCategoryService.GetProductCategoryAsync(id, trackChanges: false);
             return Ok(productCategory);
         }
 
         [HttpPost]
-        public IActionResult CreateProductCategory([FromBody] ProductCategoryCreateDto productCategory)
+        public async Task<IActionResult> CreateProductCategoryAsync([FromBody] ProductCategoryCreateDto productCategory)
         {
             if (productCategory is null)
                 return BadRequest("productCategory object is null");
-            var createdProductCategory = ServiceManager.ProductCategoryService.CreateProductCategory(productCategory);
+            var createdProductCategory = await ServiceManager.ProductCategoryService.CreateProductCategoryAsync(productCategory);
             return CreatedAtRoute("ProductCategoryById", new { id = createdProductCategory.Id }, createdProductCategory);
         }
 

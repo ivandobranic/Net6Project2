@@ -6,9 +6,9 @@ namespace Contracts
     {
         #region Methods
 
-        IEnumerable<ProductCategory> FindProductCategories(bool trackChanges);
+        Task<IEnumerable<ProductCategory>> FindProductCategoriesAsync(bool trackChanges);
 
-        ProductCategory? GetProductCategory(Guid id, bool trackChanges);
+        Task<ProductCategory?> GetProductCategoryAsync(Guid id, bool trackChanges);
 
         void CreateProductCategory(ProductCategory productCategory);
 

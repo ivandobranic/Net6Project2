@@ -5,6 +5,7 @@ using Service.Contracts;
 namespace WebApi.Controllers
 {
     [Route("api/products")]
+    [ApiController]
     public class ProductController : ControllerBase
     {
         #region Constructors
@@ -22,25 +23,28 @@ namespace WebApi.Controllers
         #region Methods
 
         [HttpGet]
-        public IActionResult FindProducts()
+        public async Task<IActionResult> FindProductsAsync()
         {
-            var products = ServiceManager.ProductService.FindProducts(trackChanges: false);
+            var products = await ServiceManager.ProductService.FindProductsAsync(trackChanges: false);
             return Ok(products);
         }
 
         [HttpGet("{id:guid}", Name = "ProductCategoryById")]
-        public IActionResult GetProduct(Guid id)
+        public async Task<IActionResult> GetProductAsync(Guid id)
         {
-            var product = ServiceManager.ProductService.GetProduct(id, trackChanges: false);
+            var product = await ServiceManager.ProductService.GetProductAsync(id, trackChanges: false);
             return Ok(product);
         }
 
         [HttpPost]
-        public IActionResult CreateProduct(Guid productCategoryId, [FromBody] ProductCreateDto product)
+        public async Task<IActionResult> CreateProductAsync(Guid productCategoryId, [FromBody] ProductCreateDto product)
         {
             if (product is null)
                 return BadRequest("ProductCreateDto object is null");
-            var createdProduct = ServiceManager.ProductService.CreateProduct(productCategoryId, product, trackChanges: false);
+            if (!ModelState.IsValid)
+                return UnprocessableEntity(ModelState);
+
+            var createdProduct = await ServiceManager.ProductService.CreateProductAsync(productCategoryId, product, trackChanges: false);
             return CreatedAtRoute("GetEmployeeForCompany", new
             {
                 productCategoryId,
@@ -50,18 +54,18 @@ namespace WebApi.Controllers
         }
 
         [HttpDelete("{id:guid}")]
-        public IActionResult DeleteProduct(Guid id)
+        public async Task<IActionResult> DeleteProductAsync(Guid id)
         {
-            ServiceManager.ProductService.DeleteProduct(id, trackChanges: false);
+            await ServiceManager.ProductService.DeleteProductAsync(id, trackChanges: false);
             return NoContent();
         }
 
         [HttpPut("{id:guid}")]
-        public IActionResult UpdateProduct(Guid id, [FromBody] ProductUpdateDto product)
+        public async Task<IActionResult> UpdateProductAsync(Guid id, [FromBody] ProductUpdateDto product)
         {
             if (product is null)
                 return BadRequest("ProductUpdateDto object is null");
-            ServiceManager.ProductService.UpdateProduct(id, product, trackChanges: true);
+            await ServiceManager.ProductService.UpdateProductAsync(id, product, trackChanges: true);
             return NoContent();
         }
 

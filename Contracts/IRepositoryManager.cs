@@ -11,7 +11,7 @@
 
         #region Methods
 
-        void Save();
+        Task SaveAsync();
 
         #endregion Methods
     }

@@ -32,16 +32,16 @@ namespace Service
 
         #region Methods
 
-        public IEnumerable<ProductCategoryDto> FindProductCategories(bool trackChanges)
+        public async Task<IEnumerable<ProductCategoryDto>> FindProductCategoriesAsync(bool trackChanges)
         {
-            var productCategories = RepositoryManager.ProductCategoryRepository.FindProductCategories(trackChanges);
+            var productCategories = await RepositoryManager.ProductCategoryRepository.FindProductCategoriesAsync(trackChanges);
             var productCategoryDto = Mapper.Map<IEnumerable<ProductCategoryDto>>(productCategories);
             return productCategoryDto;
         }
 
-        public ProductCategoryDto GetProductCategory(Guid id, bool trackChanges)
+        public async Task<ProductCategoryDto> GetProductCategoryAsync(Guid id, bool trackChanges)
         {
-            var productCategory = RepositoryManager.ProductCategoryRepository.GetProductCategory(id, trackChanges);
+            var productCategory = await RepositoryManager.ProductCategoryRepository.GetProductCategoryAsync(id, trackChanges);
             if (productCategory is null)
             {
                 throw new ProductCategoryNotFoundException(id);
@@ -50,11 +50,11 @@ namespace Service
             return productCategoryDto;
         }
 
-        public ProductCategoryDto CreateProductCategory(ProductCategoryCreateDto productCategory)
+        public async Task<ProductCategoryDto> CreateProductCategoryAsync(ProductCategoryCreateDto productCategory)
         {
             var productCategoryEntity = Mapper.Map<ProductCategory>(productCategory);
             RepositoryManager.ProductCategoryRepository.CreateProductCategory(productCategoryEntity);
-            RepositoryManager.Save();
+            await RepositoryManager.SaveAsync();
             return Mapper.Map<ProductCategoryDto>(productCategoryEntity);
         }
 

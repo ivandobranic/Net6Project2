@@ -1,5 +1,6 @@
 ﻿using Contracts;
 using Entities.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace Repository
 {
@@ -16,14 +17,14 @@ namespace Repository
 
         #region Methods
 
-        public IEnumerable<ProductCategory> FindProductCategories(bool trackChanges) =>
-             FindAll(trackChanges)
+        public async Task<IEnumerable<ProductCategory>> FindProductCategoriesAsync(bool trackChanges) =>
+             await FindAll(trackChanges)
             .OrderBy(c => c.Name)
-            .ToList();
+            .ToListAsync();
 
-        public ProductCategory? GetProductCategory(Guid id, bool trackChanges) =>
-            FindByCondition(c => c.Id.Equals(id), trackChanges)
-        .SingleOrDefault();
+        public async Task<ProductCategory?> GetProductCategoryAsync(Guid id, bool trackChanges) =>
+           await FindByCondition(c => c.Id.Equals(id), trackChanges)
+        .SingleOrDefaultAsync();
 
         public void CreateProductCategory(ProductCategory productCategory)
         {

@@ -31,15 +31,15 @@ namespace Service
 
         #region Methods
 
-        public IEnumerable<ProductDto> FindProducts(bool trackChanges)
+        public async Task<IEnumerable<ProductDto>> FindProductsAsync(bool trackChanges)
         {
-            var products = RepositoryManager.ProductRepository.FindProducts(trackChanges);
+            var products = await RepositoryManager.ProductRepository.FindProductsAsync(trackChanges);
             return Mapper.Map<IEnumerable<ProductDto>>(products);
         }
 
-        public ProductDto GetProduct(Guid id, bool trackChanges)
+        public async Task<ProductDto> GetProductAsync(Guid id, bool trackChanges)
         {
-            var product = RepositoryManager.ProductRepository.GetProduct(id, trackChanges);
+            var product = await RepositoryManager.ProductRepository.GetProductAsync(id, trackChanges);
             if (product is null)
             {
                 throw new ProductNotFoundException(id);
@@ -47,31 +47,31 @@ namespace Service
             return Mapper.Map<ProductDto>(product);
         }
 
-        public ProductDto CreateProduct(Guid productCategoryId, ProductCreateDto product, bool trackChanges)
+        public async Task<ProductDto> CreateProductAsync(Guid productCategoryId, ProductCreateDto product, bool trackChanges)
         {
             var productEntity = Mapper.Map<Entities.Models.Product>(product);
             RepositoryManager.ProductRepository.CreateProduct(productCategoryId, productEntity);
-            RepositoryManager.Save();
+            await RepositoryManager.SaveAsync();
             return Mapper.Map<ProductDto>(productEntity);
         }
 
-        public void DeleteProduct(Guid id, bool trackChanges)
+        public async Task DeleteProductAsync(Guid id, bool trackChanges)
         {
-            var product = RepositoryManager.ProductRepository.GetProduct(id, trackChanges);
+            var product = await RepositoryManager.ProductRepository.GetProductAsync(id, trackChanges);
             if (product is null)
                 throw new ProductNotFoundException(id);
             RepositoryManager.ProductRepository.DeleteProduct(product);
-            RepositoryManager.Save();
+            await RepositoryManager.SaveAsync();
         }
 
-        public void UpdateProduct(Guid id, ProductUpdateDto productUpdate, bool trackChanges)
+        public async Task UpdateProductAsync(Guid id, ProductUpdateDto productUpdate, bool trackChanges)
         {
-            var productEntity = RepositoryManager.ProductRepository.GetProduct(id, trackChanges);
+            var productEntity = await RepositoryManager.ProductRepository.GetProductAsync(id, trackChanges);
             if (productEntity is null)
                 throw new ProductNotFoundException(id);
             Mapper.Map(productUpdate, productEntity);
             RepositoryManager.ProductRepository.OnEntityCreateOrUpdate(productEntity);
-            RepositoryManager.Save();
+            await RepositoryManager.SaveAsync();
         }
 
         #endregion Methods
