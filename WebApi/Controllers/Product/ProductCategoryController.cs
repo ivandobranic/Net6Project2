@@ -1,6 +1,9 @@
 ﻿using Common.DataTransferObjects;
+using Common.RequestFeatures;
 using Microsoft.AspNetCore.Mvc;
 using Service.Contracts;
+using System.Text.Json;
+using WebApi.ActionFilters;
 
 namespace WebApi.Controllers
 {
@@ -22,10 +25,11 @@ namespace WebApi.Controllers
         #region Methods
 
         [HttpGet]
-        public async Task<IActionResult> FindProductCategoriesAsync()
+        public async Task<IActionResult> FindProductCategoriesAsync([FromQuery] ProductCategoryParameters productCategoryParameters)
         {
-            var productCategories = await ServiceManager.ProductCategoryService.FindProductCategoriesAsync(trackChanges: false);
-            return Ok(productCategories);
+            var pagedResult = await ServiceManager.ProductCategoryService.FindProductCategoriesAsync(productCategoryParameters, trackChanges: false);
+            Response.Headers.Add("X-Pagination", JsonSerializer.Serialize(pagedResult.metaData));
+            return Ok(pagedResult.productCategories);
         }
 
         [HttpGet("{id:guid}")]
@@ -36,10 +40,9 @@ namespace WebApi.Controllers
         }
 
         [HttpPost]
+        [ServiceFilter(typeof(ValidationFilterAttribute))]
         public async Task<IActionResult> CreateProductCategoryAsync([FromBody] ProductCategoryCreateDto productCategory)
         {
-            if (productCategory is null)
-                return BadRequest("productCategory object is null");
             var createdProductCategory = await ServiceManager.ProductCategoryService.CreateProductCategoryAsync(productCategory);
             return CreatedAtRoute("ProductCategoryById", new { id = createdProductCategory.Id }, createdProductCategory);
         }

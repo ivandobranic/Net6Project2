@@ -1,4 +1,5 @@
-﻿using Contracts;
+﻿using Common.RequestFeatures;
+using Contracts;
 using Entities.Models;
 using Microsoft.EntityFrameworkCore;
 
@@ -17,10 +18,11 @@ namespace Repository
 
         #region Methods
 
-        public async Task<IEnumerable<Product>> FindProductsAsync(bool trackChanges) =>
-            await FindAll(trackChanges)
-           .OrderBy(c => c.Name)
-           .ToListAsync();
+        public async Task<PagedList<Product>> FindProductsAsync(ProductParameters productParameters, bool trackChanges)
+        {
+            var products = await FindAll(trackChanges).OrderBy(c => c.Name).ToListAsync();
+            return PagedList<Product>.ToPagedList(products, productParameters.PageNumber, productParameters.PageSize);
+        }
 
         public async Task<Product?> GetProductAsync(Guid id, bool trackChanges) =>
             await FindByCondition(c => c.Id.Equals(id), trackChanges)

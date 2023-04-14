@@ -1,6 +1,9 @@
 ﻿using Common.DataTransferObjects;
+using Common.RequestFeatures;
 using Microsoft.AspNetCore.Mvc;
 using Service.Contracts;
+using System.Text.Json;
+using WebApi.ActionFilters;
 
 namespace WebApi.Controllers
 {
@@ -23,10 +26,11 @@ namespace WebApi.Controllers
         #region Methods
 
         [HttpGet]
-        public async Task<IActionResult> FindProductsAsync()
+        public async Task<IActionResult> FindProductsAsync([FromQuery] ProductParameters productParameters)
         {
-            var products = await ServiceManager.ProductService.FindProductsAsync(trackChanges: false);
-            return Ok(products);
+            var pagedResult = await ServiceManager.ProductService.FindProductsAsync(productParameters, trackChanges: false);
+            Response.Headers.Add("X-Pagination", JsonSerializer.Serialize(pagedResult.metaData));
+            return Ok(pagedResult.products);
         }
 
         [HttpGet("{id:guid}", Name = "ProductCategoryById")]
@@ -37,13 +41,9 @@ namespace WebApi.Controllers
         }
 
         [HttpPost]
+        [ServiceFilter(typeof(ValidationFilterAttribute))]
         public async Task<IActionResult> CreateProductAsync(Guid productCategoryId, [FromBody] ProductCreateDto product)
         {
-            if (product is null)
-                return BadRequest("ProductCreateDto object is null");
-            if (!ModelState.IsValid)
-                return UnprocessableEntity(ModelState);
-
             var createdProduct = await ServiceManager.ProductService.CreateProductAsync(productCategoryId, product, trackChanges: false);
             return CreatedAtRoute("GetEmployeeForCompany", new
             {
@@ -61,10 +61,9 @@ namespace WebApi.Controllers
         }
 
         [HttpPut("{id:guid}")]
+        [ServiceFilter(typeof(ValidationFilterAttribute))]
         public async Task<IActionResult> UpdateProductAsync(Guid id, [FromBody] ProductUpdateDto product)
         {
-            if (product is null)
-                return BadRequest("ProductUpdateDto object is null");
             await ServiceManager.ProductService.UpdateProductAsync(id, product, trackChanges: true);
             return NoContent();
         }

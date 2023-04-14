@@ -3,6 +3,7 @@ using John.Extensions;
 using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.Mvc;
 using NLog;
+using WebApi.ActionFilters;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,6 +16,7 @@ LogManager.LoadConfiguration(string.Concat(Directory.GetCurrentDirectory(),
 builder.Services.ConfigureSqlContext(builder.Configuration);
 builder.Services.ConfigureRepositoryManager();
 builder.Services.ConfigureServiceManager();
+builder.Services.AddScoped<ValidationFilterAttribute>();
 builder.Services.AddControllers()
     .AddApplicationPart(typeof(WebApi.AssemblyReference).Assembly);
 builder.Services.AddAutoMapper(typeof(Program));

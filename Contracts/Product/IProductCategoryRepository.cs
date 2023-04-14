@@ -1,4 +1,5 @@
-﻿using Entities.Models;
+﻿using Common.RequestFeatures;
+using Entities.Models;
 
 namespace Contracts
 {
@@ -6,7 +7,7 @@ namespace Contracts
     {
         #region Methods
 
-        Task<IEnumerable<ProductCategory>> FindProductCategoriesAsync(bool trackChanges);
+        Task<PagedList<ProductCategory>> FindProductCategoriesAsync(ProductCategoryParameters productCategoryParameters, bool trackChanges);
 
         Task<ProductCategory?> GetProductCategoryAsync(Guid id, bool trackChanges);
 

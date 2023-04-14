@@ -1,4 +1,5 @@
 ﻿using Common.DataTransferObjects;
+using Common.RequestFeatures;
 
 namespace Service.Contracts
 {
@@ -6,7 +7,7 @@ namespace Service.Contracts
     {
         #region Methods
 
-        Task<IEnumerable<ProductCategoryDto>> FindProductCategoriesAsync(bool trackChanges);
+        Task<(IEnumerable<ProductCategoryDto> productCategories, MetaData metaData)> FindProductCategoriesAsync(ProductCategoryParameters productCategoryParameters, bool trackChanges);
 
         Task<ProductCategoryDto> GetProductCategoryAsync(Guid id, bool trackChanges);
 

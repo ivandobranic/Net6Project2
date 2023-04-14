@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Common.DataTransferObjects;
+using Common.RequestFeatures;
 using Contracts;
 using Entities.Exceptions;
 using Service.Contracts;
@@ -31,10 +32,11 @@ namespace Service
 
         #region Methods
 
-        public async Task<IEnumerable<ProductDto>> FindProductsAsync(bool trackChanges)
+        public async Task<(IEnumerable<ProductDto> products, MetaData metaData)> FindProductsAsync(ProductParameters productParameters, bool trackChanges)
         {
-            var products = await RepositoryManager.ProductRepository.FindProductsAsync(trackChanges);
-            return Mapper.Map<IEnumerable<ProductDto>>(products);
+            var products = await RepositoryManager.ProductRepository.FindProductsAsync(productParameters, trackChanges);
+            var productsDto = Mapper.Map<IEnumerable<ProductDto>>(products);
+            return (products: productsDto, metaData: products.MetaData);
         }
 
         public async Task<ProductDto> GetProductAsync(Guid id, bool trackChanges)
