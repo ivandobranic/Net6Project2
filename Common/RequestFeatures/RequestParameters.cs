@@ -25,6 +25,14 @@
             }
         }
 
+        public string SortBy { get; set; } = "Id";
+
+        public bool IsAscending { get; set; }
+
+        public string Search { get; set; } = string.Empty;
+
+        public string Include { get; set; } = string.Empty;
+
         #endregion Properties
     }
 }

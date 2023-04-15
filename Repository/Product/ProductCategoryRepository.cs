@@ -20,13 +20,15 @@ namespace Repository
 
         public async Task<PagedList<ProductCategory>> FindProductCategoriesAsync(ProductCategoryParameters productCategoryParameters, bool trackChanges)
         {
-            var productCategories = await FindAll(trackChanges).OrderBy(c => c.Name).ToListAsync();
-            return PagedList<ProductCategory>.ToPagedList(productCategories, productCategoryParameters.PageNumber, productCategoryParameters.PageSize);
+            var productCategories = FindAll(trackChanges);
+            OnIncludeAsync(ref productCategories, productCategoryParameters);
+            OnFindFilterAsync(ref productCategories, productCategoryParameters);
+            OnFindSorterAsync(ref productCategories, productCategoryParameters);
+            return await TransformResultAsync(productCategories, productCategoryParameters);
         }
 
         public async Task<ProductCategory?> GetProductCategoryAsync(Guid id, bool trackChanges) =>
-           await FindByCondition(c => c.Id.Equals(id), trackChanges)
-        .SingleOrDefaultAsync();
+           await FindByCondition(c => c.Id.Equals(id), trackChanges).SingleOrDefaultAsync();
 
         public void CreateProductCategory(ProductCategory productCategory)
         {
@@ -39,6 +41,44 @@ namespace Repository
                 }
             }
             Create(productCategory);
+        }
+
+        private static void OnFindFilterAsync(ref IQueryable<ProductCategory> query, ProductCategoryParameters productCategoryParameters)
+        {
+            if (!string.IsNullOrEmpty(productCategoryParameters.Search))
+            {
+                query = query.Where(x => x.Name == productCategoryParameters.Search);
+            }
+            if (productCategoryParameters.IsActive.HasValue)
+            {
+                query = query.Where(x => x.IsActive == productCategoryParameters.IsActive.Value);
+            }
+        }
+
+        private static void OnIncludeAsync(ref IQueryable<ProductCategory> query, ProductCategoryParameters productCategoryParameters)
+        {
+            if (!string.IsNullOrEmpty(productCategoryParameters.Include))
+            {
+                if (productCategoryParameters.Include.Contains(nameof(ProductCategory.Products)))
+                {
+                    query = query.Include(x => x.Products);
+                }
+            }
+        }
+
+        private static void OnFindSorterAsync(ref IQueryable<ProductCategory> query, ProductCategoryParameters productCategoryParameters)
+        {
+            if (!string.IsNullOrEmpty(productCategoryParameters.SortBy))
+            {
+                if (productCategoryParameters.SortBy.Equals(nameof(ProductCategory.Name)))
+                {
+                    query = productCategoryParameters.IsAscending == false ? query.OrderByDescending(x => x.Name) : query.OrderBy(x => x.Name);
+                }
+            }
+            else
+            {
+                query = query.OrderBy(x => x.Id);
+            }
         }
 
         #endregion Methods

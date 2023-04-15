@@ -1,4 +1,5 @@
-﻿using Contracts;
+﻿using Common.RequestFeatures;
+using Contracts;
 using Entities.Models;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
@@ -52,6 +53,13 @@ namespace Repository
             }
             productCategory.DateUpdated = now;
             productCategory.TimeStamp = now;
+        }
+
+        protected async Task<PagedList<T>> TransformResultAsync(IQueryable<T> query, RequestParameters parameters)
+        {
+            var totalCount = await query.CountAsync();
+            var entities = await query.Skip((parameters.PageNumber - 1) * parameters.PageSize).Take(parameters.PageSize).ToListAsync();
+            return new PagedList<T>(entities, totalCount, parameters.PageNumber, parameters.PageSize);
         }
 
         #endregion Methods
