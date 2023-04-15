@@ -4,9 +4,11 @@
     {
         #region Properties
 
-        public IProductCategoryService ProductCategoryService { get; }
+        IProductCategoryService ProductCategoryService { get; }
 
-        public IProductService ProductService { get; }
+        IProductService ProductService { get; }
+
+        IAuthenticationService AuthenticationService { get; }
 
         #endregion Properties
     }

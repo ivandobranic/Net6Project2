@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Repository;
 
@@ -11,9 +12,11 @@ using Repository;
 namespace John.Migrations
 {
     [DbContext(typeof(RepositoryContext))]
-    partial class RepositoryContextModelSnapshot : ModelSnapshot
+    [Migration("20230415160419_CreatingIdentityTables")]
+    partial class CreatingIdentityTables
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -61,35 +64,35 @@ namespace John.Migrations
                         new
                         {
                             Id = new Guid("80abbca8-664d-4b20-b5de-024705497d4a"),
-                            DateCreated = new DateTime(2023, 4, 15, 16, 23, 41, 351, DateTimeKind.Utc).AddTicks(1815),
-                            DateUpdated = new DateTime(2023, 4, 15, 16, 23, 41, 351, DateTimeKind.Utc).AddTicks(1816),
+                            DateCreated = new DateTime(2023, 4, 15, 16, 4, 18, 863, DateTimeKind.Utc).AddTicks(1100),
+                            DateUpdated = new DateTime(2023, 4, 15, 16, 4, 18, 863, DateTimeKind.Utc).AddTicks(1101),
                             IsActive = false,
                             Name = "Samsung",
                             Price = 26m,
                             ProductCategoryId = new Guid("c9d4c053-49b6-410c-bc78-2d54a9991870"),
-                            TimeStamp = new DateTime(2023, 4, 15, 16, 23, 41, 351, DateTimeKind.Utc).AddTicks(1816)
+                            TimeStamp = new DateTime(2023, 4, 15, 16, 4, 18, 863, DateTimeKind.Utc).AddTicks(1101)
                         },
                         new
                         {
                             Id = new Guid("86dba8c0-d178-41e7-938c-ed49778fb52a"),
-                            DateCreated = new DateTime(2023, 4, 15, 16, 23, 41, 351, DateTimeKind.Utc).AddTicks(1819),
-                            DateUpdated = new DateTime(2023, 4, 15, 16, 23, 41, 351, DateTimeKind.Utc).AddTicks(1819),
+                            DateCreated = new DateTime(2023, 4, 15, 16, 4, 18, 863, DateTimeKind.Utc).AddTicks(1103),
+                            DateUpdated = new DateTime(2023, 4, 15, 16, 4, 18, 863, DateTimeKind.Utc).AddTicks(1104),
                             IsActive = true,
                             Name = "LG",
                             Price = 30m,
                             ProductCategoryId = new Guid("c9d4c053-49b6-410c-bc78-2d54a9991870"),
-                            TimeStamp = new DateTime(2023, 4, 15, 16, 23, 41, 351, DateTimeKind.Utc).AddTicks(1820)
+                            TimeStamp = new DateTime(2023, 4, 15, 16, 4, 18, 863, DateTimeKind.Utc).AddTicks(1104)
                         },
                         new
                         {
                             Id = new Guid("021ca3c1-0deb-4afd-ae94-2159a8479811"),
-                            DateCreated = new DateTime(2023, 4, 15, 16, 23, 41, 351, DateTimeKind.Utc).AddTicks(1822),
-                            DateUpdated = new DateTime(2023, 4, 15, 16, 23, 41, 351, DateTimeKind.Utc).AddTicks(1822),
+                            DateCreated = new DateTime(2023, 4, 15, 16, 4, 18, 863, DateTimeKind.Utc).AddTicks(1106),
+                            DateUpdated = new DateTime(2023, 4, 15, 16, 4, 18, 863, DateTimeKind.Utc).AddTicks(1106),
                             IsActive = true,
                             Name = "Traktor",
                             Price = 35m,
                             ProductCategoryId = new Guid("3d490a70-94ce-4d15-9494-5248280c2ce3"),
-                            TimeStamp = new DateTime(2023, 4, 15, 16, 23, 41, 351, DateTimeKind.Utc).AddTicks(1823)
+                            TimeStamp = new DateTime(2023, 4, 15, 16, 4, 18, 863, DateTimeKind.Utc).AddTicks(1107)
                         });
                 });
 
@@ -124,20 +127,20 @@ namespace John.Migrations
                         new
                         {
                             Id = new Guid("c9d4c053-49b6-410c-bc78-2d54a9991870"),
-                            DateCreated = new DateTime(2023, 4, 15, 16, 23, 41, 351, DateTimeKind.Utc).AddTicks(1544),
-                            DateUpdated = new DateTime(2023, 4, 15, 16, 23, 41, 351, DateTimeKind.Utc).AddTicks(1547),
+                            DateCreated = new DateTime(2023, 4, 15, 16, 4, 18, 863, DateTimeKind.Utc).AddTicks(920),
+                            DateUpdated = new DateTime(2023, 4, 15, 16, 4, 18, 863, DateTimeKind.Utc).AddTicks(923),
                             IsActive = true,
                             Name = "TV",
-                            TimeStamp = new DateTime(2023, 4, 15, 16, 23, 41, 351, DateTimeKind.Utc).AddTicks(1547)
+                            TimeStamp = new DateTime(2023, 4, 15, 16, 4, 18, 863, DateTimeKind.Utc).AddTicks(924)
                         },
                         new
                         {
                             Id = new Guid("3d490a70-94ce-4d15-9494-5248280c2ce3"),
-                            DateCreated = new DateTime(2023, 4, 15, 16, 23, 41, 351, DateTimeKind.Utc).AddTicks(1549),
-                            DateUpdated = new DateTime(2023, 4, 15, 16, 23, 41, 351, DateTimeKind.Utc).AddTicks(1550),
+                            DateCreated = new DateTime(2023, 4, 15, 16, 4, 18, 863, DateTimeKind.Utc).AddTicks(926),
+                            DateUpdated = new DateTime(2023, 4, 15, 16, 4, 18, 863, DateTimeKind.Utc).AddTicks(926),
                             IsActive = true,
                             Name = "DJ Controllers",
-                            TimeStamp = new DateTime(2023, 4, 15, 16, 23, 41, 351, DateTimeKind.Utc).AddTicks(1550)
+                            TimeStamp = new DateTime(2023, 4, 15, 16, 4, 18, 863, DateTimeKind.Utc).AddTicks(926)
                         });
                 });
 
@@ -239,22 +242,6 @@ namespace John.Migrations
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("AspNetRoles", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = "a35d33a6-c286-498a-bc5e-14b220382472",
-                            ConcurrencyStamp = "03a9dbb5-c403-425f-aeed-511c363f919f",
-                            Name = "Manager",
-                            NormalizedName = "MANAGER"
-                        },
-                        new
-                        {
-                            Id = "69f04b3a-9ca7-44dc-aa8f-852e3250c85a",
-                            ConcurrencyStamp = "5438f737-47c3-4b44-8547-c2097d425468",
-                            Name = "Administrator",
-                            NormalizedName = "ADMINISTRATOR"
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

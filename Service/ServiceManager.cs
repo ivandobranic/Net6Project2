@@ -1,5 +1,8 @@
 ﻿using AutoMapper;
 using Contracts;
+using Entities.Models;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Configuration;
 using Service.Contracts;
 
 namespace Service
@@ -10,18 +13,17 @@ namespace Service
 
         private readonly Lazy<IProductCategoryService> _productCategoryService;
         private readonly Lazy<IProductService> _productService;
+        private readonly Lazy<IAuthenticationService> _authenticationService;
 
         #endregion Fields
 
         #region Constructors
 
-        public ServiceManager(IRepositoryManager repositoryManager, ILoggerManager
-        logger, IMapper mapper)
+        public ServiceManager(IRepositoryManager repositoryManager, ILoggerManager logger, IMapper mapper, UserManager<User> userManager, IConfiguration configuration)
         {
-            _productCategoryService = new Lazy<IProductCategoryService>(() => new
-            ProductCategoryService(repositoryManager, logger, mapper));
-            _productService = new Lazy<IProductService>(() => new
-            ProductService(repositoryManager, logger, mapper));
+            _productCategoryService = new Lazy<IProductCategoryService>(() => new ProductCategoryService(repositoryManager, logger, mapper));
+            _productService = new Lazy<IProductService>(() => new ProductService(repositoryManager, logger, mapper));
+            _authenticationService = new Lazy<IAuthenticationService>(() => new AuthenticationService(logger, mapper, userManager, configuration));
         }
 
         #endregion Constructors
@@ -30,6 +32,7 @@ namespace Service
 
         public IProductCategoryService ProductCategoryService => _productCategoryService.Value;
         public IProductService ProductService => _productService.Value;
+        public IAuthenticationService AuthenticationService => _authenticationService.Value;
 
         #endregion Properties
     }

@@ -15,6 +15,7 @@ namespace John
             CreateMap<ProductCategoryCreateDto, ProductCategory>();
             CreateMap<ProductCreateDto, Product>();
             CreateMap<ProductUpdateDto, Product>();
+            CreateMap<UserCreateDto, User>();
         }
 
         #endregion Constructors
