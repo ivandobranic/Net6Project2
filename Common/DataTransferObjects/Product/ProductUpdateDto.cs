@@ -1,4 +1,4 @@
-﻿namespace Common.DataTransferObjects
+﻿namespace Common.DataTransferObjects.Product
 {
     public record ProductUpdateDto(string Name, decimal Price, bool IsActive);
 }

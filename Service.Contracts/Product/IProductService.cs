@@ -1,4 +1,4 @@
-﻿using Common.DataTransferObjects;
+﻿using Common.DataTransferObjects.Product;
 using Common.RequestFeatures;
 
 namespace Service.Contracts

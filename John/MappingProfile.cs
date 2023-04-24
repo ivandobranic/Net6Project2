@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
-using Common.DataTransferObjects;
+using Common.DataTransferObjects.Product;
+using Common.DataTransferObjects.User;
 using Entities.Models;
 
 namespace John

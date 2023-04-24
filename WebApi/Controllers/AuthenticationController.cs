@@ -1,4 +1,4 @@
-﻿using Common.DataTransferObjects;
+﻿using Common.DataTransferObjects.User;
 using Microsoft.AspNetCore.Mvc;
 using Service.Contracts;
 using WebApi.ActionFilters;
@@ -40,6 +40,18 @@ namespace WebApi.Controllers
                 return BadRequest(ModelState);
             }
             return StatusCode(201);
+        }
+
+        [HttpPost("login")]
+        [ServiceFilter(typeof(ValidationFilterAttribute))]
+        public async Task<IActionResult> Authenticate([FromBody] UserForAuthenticationDto user)
+        {
+            if (!await ServiceManager.AuthenticationService.ValidateUser(user))
+            {
+                return Unauthorized();
+            }
+            var tokenDto = await ServiceManager.AuthenticationService.CreateToken(populateExp: true);
+            return Ok(tokenDto);
         }
 
         #endregion Methods

@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Common.DataTransferObjects
+namespace Common.DataTransferObjects.Product
 {
     public record ProductCreateDto(
         [Required(ErrorMessage = "Name is a required field.")] string Name,

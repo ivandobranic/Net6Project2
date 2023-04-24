@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using Common.DataTransferObjects;
+using Common.DataTransferObjects.Product;
 using Common.RequestFeatures;
 using Contracts;
 using Entities.Exceptions;

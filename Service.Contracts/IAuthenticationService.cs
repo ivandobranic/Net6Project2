@@ -1,4 +1,4 @@
-﻿using Common.DataTransferObjects;
+﻿using Common.DataTransferObjects.User;
 using Microsoft.AspNetCore.Identity;
 
 namespace Service.Contracts
@@ -8,6 +8,10 @@ namespace Service.Contracts
         #region Methods
 
         Task<IdentityResult> CreateUser(UserCreateDto user);
+
+        Task<bool> ValidateUser(UserForAuthenticationDto userForAuth);
+
+        Task<TokenDto> CreateToken(bool populateExp);
 
         #endregion Methods
     }

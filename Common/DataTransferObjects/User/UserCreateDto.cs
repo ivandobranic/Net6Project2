@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Common.DataTransferObjects
+namespace Common.DataTransferObjects.User
 {
     public record UserCreateDto
     {

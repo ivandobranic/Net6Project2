@@ -1,5 +1,6 @@
-﻿using Common.DataTransferObjects;
+﻿using Common.DataTransferObjects.Product;
 using Common.RequestFeatures;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Service.Contracts;
 using System.Text.Json;
@@ -26,6 +27,7 @@ namespace WebApi.Controllers
         #region Methods
 
         [HttpGet]
+        [Authorize]
         public async Task<IActionResult> FindProductsAsync([FromQuery] ProductParameters productParameters)
         {
             var pagedResult = await ServiceManager.ProductService.FindProductsAsync(productParameters, trackChanges: false);
