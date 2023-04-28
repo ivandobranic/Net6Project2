@@ -13,6 +13,8 @@ namespace Service.Contracts
 
         Task<TokenDto> CreateToken(bool populateExp);
 
+        Task<TokenDto> RefreshToken(TokenDto tokenDto);
+
         #endregion Methods
     }
 }
