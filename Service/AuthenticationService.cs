@@ -5,7 +5,7 @@ using Entities.ConfigurationModels;
 using Entities.Exceptions;
 using Entities.Models;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using Service.Contracts;
 using System.IdentityModel.Tokens.Jwt;
@@ -19,22 +19,20 @@ namespace Service
     {
         #region Fields
 
+        private readonly IOptions<JwtConfiguration> _configuration;
         private readonly JwtConfiguration _jwtConfiguration;
-
-        private User? _user;
 
         #endregion Fields
 
         #region Constructors
 
-        public AuthenticationService(ILoggerManager logger, IMapper mapper, UserManager<User> userManager, IConfiguration configuration)
+        public AuthenticationService(ILoggerManager logger, IMapper mapper, UserManager<User> userManager, IOptions<JwtConfiguration> configuration)
         {
             Logger = logger;
             Mapper = mapper;
             UserManager = userManager;
-            Configuration = configuration;
-            _jwtConfiguration = new JwtConfiguration();
-            Configuration.Bind(_jwtConfiguration.Section, _jwtConfiguration);
+            _configuration = configuration;
+            _jwtConfiguration = _configuration.Value;
         }
 
         #endregion Constructors
@@ -45,8 +43,6 @@ namespace Service
         public IMapper Mapper { get; set; }
 
         public UserManager<User> UserManager { get; set; }
-
-        public IConfiguration Configuration { get; set; }
 
         #endregion Properties
 
