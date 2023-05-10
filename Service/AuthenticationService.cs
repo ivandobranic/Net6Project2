@@ -21,6 +21,7 @@ namespace Service
 
         private readonly IOptions<JwtConfiguration> _configuration;
         private readonly JwtConfiguration _jwtConfiguration;
+        private User? _user;
 
         #endregion Fields
 
