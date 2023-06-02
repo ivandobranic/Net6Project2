@@ -1,11 +1,10 @@
 ﻿using Common.RequestFeatures;
 using Contracts;
-using Entities.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace Repository
 {
-    public class ProductRepository : RepositoryBase<Product>, IProductRepository
+    public class ProductRepository : RepositoryBase<Entities.Models.Product>, IProductRepository
     {
         #region Constructors
 
@@ -18,7 +17,7 @@ namespace Repository
 
         #region Methods
 
-        public async Task<PagedList<Product>> FindProductsAsync(ProductParameters productParameters, bool trackChanges)
+        public async Task<PagedList<Entities.Models.Product>> FindProductsAsync(ProductParameters productParameters, bool trackChanges)
         {
             var products = FindAll(trackChanges);
             OnIncludeAsync(ref products, productParameters);
@@ -27,19 +26,19 @@ namespace Repository
             return await TransformResultAsync(products, productParameters);
         }
 
-        public async Task<Product?> GetProductAsync(Guid id, bool trackChanges) =>
+        public async Task<Entities.Models.Product?> GetProductAsync(Guid id, bool trackChanges) =>
             await FindByCondition(c => c.Id.Equals(id), trackChanges).SingleOrDefaultAsync();
 
-        public void CreateProduct(Guid productCategoryId, Product product)
+        public void CreateProduct(Guid productCategoryId, Entities.Models.Product product)
         {
             product.ProductCategoryId = productCategoryId;
             OnEntityCreateOrUpdate(product);
             Create(product);
         }
 
-        public void DeleteProduct(Product product) => Delete(product);
+        public void DeleteProduct(Entities.Models.Product product) => Delete(product);
 
-        private static void OnFindFilterAsync(ref IQueryable<Product> query, ProductParameters productParameters)
+        private static void OnFindFilterAsync(ref IQueryable<Entities.Models.Product> query, ProductParameters productParameters)
         {
             if (!string.IsNullOrEmpty(productParameters.Search))
             {
@@ -55,22 +54,22 @@ namespace Repository
             }
         }
 
-        private static void OnIncludeAsync(ref IQueryable<Product> query, ProductParameters productParameters)
+        private static void OnIncludeAsync(ref IQueryable<Entities.Models.Product> query, ProductParameters productParameters)
         {
             if (!string.IsNullOrEmpty(productParameters.Include))
             {
-                if (productParameters.Include.Contains(nameof(Product.ProductCategory)))
+                if (productParameters.Include.Contains(nameof(Entities.Models.Product.ProductCategory)))
                 {
                     query = query.Include(x => x.ProductCategory);
                 }
             }
         }
 
-        private static void OnFindSorterAsync(ref IQueryable<Product> query, ProductParameters productParameters)
+        private static void OnFindSorterAsync(ref IQueryable<Entities.Models.Product> query, ProductParameters productParameters)
         {
             if (!string.IsNullOrEmpty(productParameters.SortBy))
             {
-                if (productParameters.SortBy.Equals(nameof(Product.Name)))
+                if (productParameters.SortBy.Equals(nameof(Entities.Models.Product.Name)))
                 {
                     query = productParameters.IsAscending == false ? query.OrderByDescending(x => x.Name) : query.OrderBy(x => x.Name);
                 }

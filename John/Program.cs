@@ -28,6 +28,11 @@ builder.Services.AddAuthentication();
 builder.Services.ConfigureIdentity();
 builder.Services.ConfigureJWT(builder.Configuration);
 builder.Services.AddJwtConfiguration(builder.Configuration);
+builder.Services.AddStackExchangeRedisCache(options =>
+{
+    options.Configuration = builder.Configuration["ConnectionString:Redis"];
+    options.InstanceName = "localhost";
+});
 
 var app = builder.Build();
 var logger = app.Services.GetRequiredService<ILoggerManager>();

@@ -1,4 +1,5 @@
 ﻿using Contracts;
+using Contracts.Product;
 
 namespace Repository
 {
@@ -9,6 +10,7 @@ namespace Repository
         private readonly RepositoryContext _repositoryContext;
         private readonly Lazy<IProductCategoryRepository> _productCategoryRepository;
         private readonly Lazy<IProductRepository> _productRepository;
+        private readonly Lazy<IProductStatusRepository> _productStatusRepository;
 
         #endregion Fields
 
@@ -21,6 +23,8 @@ namespace Repository
             ProductCategoryRepository(repositoryContext));
             _productRepository = new Lazy<IProductRepository>(() => new
             ProductRepository(repositoryContext));
+            _productStatusRepository = new Lazy<IProductStatusRepository>(() => new
+           ProductStatusRepository(repositoryContext));
         }
 
         #endregion Constructors
@@ -29,6 +33,7 @@ namespace Repository
 
         public IProductCategoryRepository ProductCategoryRepository => _productCategoryRepository.Value;
         public IProductRepository ProductRepository => _productRepository.Value;
+        public IProductStatusRepository ProductStatusRepository => _productStatusRepository.Value;
 
         #endregion Properties
 

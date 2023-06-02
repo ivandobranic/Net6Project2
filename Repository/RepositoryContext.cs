@@ -22,6 +22,8 @@ namespace Repository
 
         public DbSet<ProductCategory>? ProductCategory { get; set; }
 
+        public DbSet<ProductStatus>? ProductStatus { get; set; }
+
         #endregion Properties
 
         #region Methods
@@ -32,6 +34,7 @@ namespace Repository
             modelBuilder.ApplyConfiguration(new ProductCategoryConfiguration());
             modelBuilder.ApplyConfiguration(new ProductConfiguration());
             modelBuilder.ApplyConfiguration(new RoleConfiguration());
+            modelBuilder.ApplyConfiguration(new ProductStatusConfiguration());
         }
 
         #endregion Methods

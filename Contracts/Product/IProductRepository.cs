@@ -7,13 +7,13 @@ namespace Contracts
     {
         #region Methods
 
-        Task<PagedList<Product>> FindProductsAsync(ProductParameters productParameters, bool trackChanges);
+        Task<PagedList<Entities.Models.Product>> FindProductsAsync(ProductParameters productParameters, bool trackChanges);
 
-        Task<Product?> GetProductAsync(Guid id, bool trackChanges);
+        Task<Entities.Models.Product?> GetProductAsync(Guid id, bool trackChanges);
 
         void CreateProduct(Guid productCategoryId, Entities.Models.Product product);
 
-        void DeleteProduct(Product product);
+        void DeleteProduct(Entities.Models.Product product);
 
         void OnEntityCreateOrUpdate(BaseModel productCategory);
 

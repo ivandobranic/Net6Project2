@@ -1,4 +1,6 @@
-﻿namespace Contracts
+﻿using Contracts.Product;
+
+namespace Contracts
 {
     public interface IRepositoryManager
     {
@@ -6,6 +8,8 @@
 
         IProductCategoryRepository ProductCategoryRepository { get; }
         IProductRepository ProductRepository { get; }
+
+        IProductStatusRepository ProductStatusRepository { get; }
 
         #endregion Properties
 
