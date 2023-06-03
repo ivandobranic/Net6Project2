@@ -50,7 +50,17 @@ namespace Service.Lookups
 
         public virtual async Task<IEnumerable<ProductStatus>> GetItemsAsync()
         {
-            return await Cache.TryGetValue<IEnumerable<ProductStatus>>(CacheKey) ?? await RepositoryManager.ProductStatusRepository.FindProductStatusAsync();
+            var cacheResult = await Cache.TryGetValue<IEnumerable<ProductStatus>>(CacheKey);
+            if (cacheResult != null)
+            {
+                return cacheResult;
+            }
+            else
+            {
+                var nonCacheResult = await RepositoryManager.ProductStatusRepository.FindProductStatusAsync();
+                await Cache.SetAsync(CacheKey, nonCacheResult, new DistributedCacheEntryOptions { AbsoluteExpiration = DateTimeOffset.MaxValue });
+                return nonCacheResult;
+            }
         }
 
         public virtual async Task InvalidateItemsAsync()

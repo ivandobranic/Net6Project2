@@ -11,5 +11,13 @@ namespace Service.Contracts
         Lazy<Task<ProductStatus?>> Inactive { get; }
 
         #endregion Properties
+
+        #region Methods
+
+        Task<IEnumerable<ProductStatus>> GetItemsAsync();
+
+        Task InvalidateItemsAsync();
+
+        #endregion Methods
     }
 }

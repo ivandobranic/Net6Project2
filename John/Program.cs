@@ -30,8 +30,8 @@ builder.Services.ConfigureJWT(builder.Configuration);
 builder.Services.AddJwtConfiguration(builder.Configuration);
 builder.Services.AddStackExchangeRedisCache(options =>
 {
-    options.Configuration = builder.Configuration["ConnectionString:Redis"];
-    options.InstanceName = "localhost";
+    options.Configuration = builder.Configuration.GetConnectionString("redis");
+    options.InstanceName = "John";
 });
 
 var app = builder.Build();

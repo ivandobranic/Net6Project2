@@ -10,6 +10,8 @@
 
         IAuthenticationService AuthenticationService { get; }
 
+        IProductStatusLookup ProductStatusLookup { get; }
+
         #endregion Properties
     }
 }
